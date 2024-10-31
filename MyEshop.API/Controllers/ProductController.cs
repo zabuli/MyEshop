@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MyEshop.Application.Services;
 
 namespace MyEshop.API.Controllers
 {
@@ -6,10 +7,15 @@ namespace MyEshop.API.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult Index()
+        private readonly ProductService _productService;
+
+        public ProductController(ProductService productService)
         {
-            return Ok("Welcome!");
+            _productService = productService;
         }
+        
+        [HttpGet]
+        public async Task<IActionResult> GetAllProducts() =>
+            Ok(await _productService.GetAllProductsAsync());
     }
 }
