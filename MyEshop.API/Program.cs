@@ -1,4 +1,5 @@
 using System.Reflection;
+using Asp.Versioning;
 using MyEshop.Application.Services;
 using MyEshop.Core.Interfaces;
 using MyEshop.Infrastructure.Repositories;
@@ -27,12 +28,28 @@ else
 
 builder.Services.AddScoped<ProductService>();
 
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = ApiVersionReader.Combine(
+        new UrlSegmentApiVersionReader(),
+        new HeaderApiVersionReader("X-Api-Version")
+    );
+}).AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "MyEshop API", Version = "v1" });
+    c.SwaggerDoc("v2", new OpenApiInfo { Title = "MyEshop API", Version = "v2" });
     
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -46,7 +63,8 @@ if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Test"))
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Eshop API V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyEshop API V1");
+        c.SwaggerEndpoint("/swagger/v2/swagger.json", "MyEshop API V2");
     });
 }
 
