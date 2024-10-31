@@ -7,5 +7,5 @@ public interface IProductRepository
     Task<IEnumerable<Product>> GetAllProductsAsync();
     Task<IEnumerable<Product>> GetProductsPagedAsync(int page, int pageSize);
     Task<Product?> GetProductByIdAsync(int id);
-    Task UpdateProductDescriptionAsync(int id, string description);
+    Task UpdateProductDescriptionAsync(int id, string? description);
 }

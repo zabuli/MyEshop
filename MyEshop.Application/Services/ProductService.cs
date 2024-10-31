@@ -21,6 +21,6 @@ public class ProductService
     public async Task<Product?> GetProductByIdAsync(int id) =>
         await _productRepository.GetProductByIdAsync(id);
 
-    public async Task UpdateProductDescriptionAsync(int id, string description) =>
+    public async Task UpdateProductDescriptionAsync(int id, string? description) =>
         await _productRepository.UpdateProductDescriptionAsync(id, description);
 }

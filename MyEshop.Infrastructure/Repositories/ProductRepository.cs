@@ -31,7 +31,7 @@ public class ProductRepository : IProductRepository
         return await _context.Products.FindAsync(id);
     }
 
-    public async Task UpdateProductDescriptionAsync(int id, string description)
+    public async Task UpdateProductDescriptionAsync(int id, string? description)
     {
         var product = await _context.Products.FindAsync(id);
         if (product != null)
