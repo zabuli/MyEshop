@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Configurations>Debug;Release;Test</Configurations>
+    <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -12,6 +14,10 @@
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DocumentationFile>bin\Release\net8.0\MyEshop.API.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Test' ">
+    <DocumentationFile>bin\Test\net8.0\MyEshop.API.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,6 +37,7 @@
     <ProjectReference Include="..\MyEshop.Application\MyEshop.Application.csproj" />
     <ProjectReference Include="..\MyEshop.Core\MyEshop.Core.csproj" />
     <ProjectReference Include="..\MyEshop.Infrastructure\MyEshop.Infrastructure.csproj" />
+    <ProjectReference Include="..\MyEshop.TestUtilities\MyEshop.TestUtilities.csproj" />
   </ItemGroup>
 
 </Project>

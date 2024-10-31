@@ -7,31 +7,35 @@ using MyEshop.API.Dtos;
 using MyEshop.Application.Services;
 using MyEshop.Core.Entities;
 using MyEshop.Core.Interfaces;
+using MyEshop.TestUtilities.Mocks;
 
-namespace MyEshop.Tests;
+namespace MyEshop.Tests.Controllers;
 
 public class ProductControllerTests
 {
     private readonly Mock<IMapper> _mockMapper;
-    private readonly Mock<IProductRepository> _mockProductRepository;
     private readonly ProductController _controller;
+    private readonly List<Product> _mockProducts;
 
     public ProductControllerTests()
     {
-        _mockProductRepository = new Mock<IProductRepository>();
+        IProductRepository mockProductRepository = new MockProductRepository();
+        var productService = new ProductService(mockProductRepository);
+        _mockProducts = MockProducts.Products;
         _mockMapper = new Mock<IMapper>();
-        var productService = new ProductService(_mockProductRepository.Object);
         _controller = new ProductController(_mockMapper.Object, productService);
     }
     
     [Fact]
     public async Task GetProductById_ReturnsProduct_WhenProductExists()
     {
-        var mockProduct = new Product { Id = 1, Name = "Product 01", ImgUri = "www.images.com/product01", Description = "Description for Product 01", Price = 10.99m };
-        var mockProductDto = new ProductDto { Id = 1, Name = "Product 01", ImgUri = "www.images.com/product01", Description = "Description for Product 01", Price = 10.99m };
-
-        _mockProductRepository.Setup(x => x.GetProductByIdAsync(mockProduct.Id))
-            .ReturnsAsync(mockProduct);
+        var mockProduct = _mockProducts[0];
+        var mockProductDto = new ProductDto
+        {
+            Id = mockProduct.Id, Name = mockProduct.Name, ImgUri = mockProduct.ImgUri, Price = mockProduct.Price,
+            Description = mockProduct.Description
+        };
+        
         _mockMapper.Setup(mapper => mapper.Map<ProductDto>(mockProduct))
             .Returns(mockProductDto);
         
@@ -48,9 +52,6 @@ public class ProductControllerTests
     {
         const int productId = 5;
         
-        _mockProductRepository.Setup(x => x.GetProductByIdAsync(productId))
-            .ReturnsAsync((Product?)null);
-        
         var result = await _controller.GetProductById(productId);
         
         Assert.IsType<NotFoundResult>(result);
@@ -61,13 +62,7 @@ public class ProductControllerTests
     {
         const int productId = 1;
         const string newDescription = "Updated Description";
-        var mockProduct = new Product { Id = 1, Name = "Product 01", ImgUri = "www.images.com/product01", Description = "Description for Product 01", Price = 10.99m };
 
-        _mockProductRepository.Setup(x => x.GetProductByIdAsync(productId))
-            .ReturnsAsync(mockProduct);
-        _mockProductRepository.Setup(x => x.UpdateProductDescriptionAsync(productId, newDescription))
-            .Returns(Task.CompletedTask);
-        
         var result = await _controller.UpdateProductDescription(productId, newDescription);
         
         Assert.IsType<NoContentResult>(result);

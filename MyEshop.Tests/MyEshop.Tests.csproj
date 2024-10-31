@@ -7,6 +7,8 @@
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
+        <Configurations>Debug;Release;Test</Configurations>
+        <Platforms>AnyCPU</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
@@ -25,6 +27,7 @@
     <ItemGroup>
       <ProjectReference Include="..\MyEshop.API\MyEshop.API.csproj" />
       <ProjectReference Include="..\MyEshop.Core\MyEshop.Core.csproj" />
+      <ProjectReference Include="..\MyEshop.TestUtilities\MyEshop.TestUtilities.csproj" />
     </ItemGroup>
 
 </Project>
