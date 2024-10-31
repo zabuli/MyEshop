@@ -73,6 +73,90 @@ namespace MyEshop.Infrastructure.Migrations
                             ImgUri = "www.images.com/product03",
                             Name = "Product 03",
                             Price = 29.99m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImgUri = "www.images.com/product04",
+                            Name = "Product 04",
+                            Price = 24.99m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ImgUri = "www.images.com/product05",
+                            Name = "Product 05",
+                            Price = 25.99m
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ImgUri = "www.images.com/product06",
+                            Name = "Product 06",
+                            Price = 26.99m
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ImgUri = "www.images.com/product07",
+                            Name = "Product 07",
+                            Price = 27.99m
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ImgUri = "www.images.com/product08",
+                            Name = "Product 08",
+                            Price = 28.99m
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ImgUri = "www.images.com/product09",
+                            Name = "Product 09",
+                            Price = 29.99m
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ImgUri = "www.images.com/product10",
+                            Name = "Product 10",
+                            Price = 10.99m
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ImgUri = "www.images.com/product11",
+                            Name = "Product 11",
+                            Price = 11.99m
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ImgUri = "www.images.com/product12",
+                            Name = "Product 12",
+                            Price = 12.99m
+                        },
+                        new
+                        {
+                            Id = 13,
+                            ImgUri = "www.images.com/product13",
+                            Name = "Product 13",
+                            Price = 13.99m
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ImgUri = "www.images.com/product14",
+                            Name = "Product 14",
+                            Price = 14.99m
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ImgUri = "www.images.com/product15",
+                            Name = "Product 15",
+                            Price = 15.99m
                         });
                 });
 #pragma warning restore 612, 618

@@ -50,7 +50,7 @@ public class ProductControllerTests
     [Fact]
     public async Task GetProductById_ReturnsNotFound_WhenProductDoesNotExist()
     {
-        const int productId = 5;
+        const int productId = 55;
         
         var result = await _controller.GetProductById(productId);
         
