@@ -25,5 +25,44 @@ namespace MyEshop.API.Controllers
             var productDtos = _mapper.Map<IEnumerable<ProductDto>>(products);
             return Ok(productDtos);   
         }
+        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProductById(int id)
+        {
+            var product = await _productService.GetProductByIdAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            
+            var productDto = _mapper.Map<ProductDto>(product);
+            return Ok(productDto);
+        }
+        
+        [HttpPut("{id}/description")]
+        public async Task<IActionResult> UpdateProductDescription(int id, [FromBody] string newDescription)
+        {
+            if (string.IsNullOrWhiteSpace(newDescription))
+            {
+                return BadRequest("Description cannot be empty.");
+            }
+
+            try
+            {
+                var product = await _productService.GetProductByIdAsync(id);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+                
+                await _productService.UpdateProductDescriptionAsync(id, newDescription);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
+        }
     }
 }
