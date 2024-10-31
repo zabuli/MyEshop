@@ -6,6 +6,8 @@ using MyEshop.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 builder.Services.AddDbContext<MyEshopDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyEshopDB")));
 
